@@ -3,10 +3,35 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+const BASE_URL = 'https://taliaai.blog';
+
 export const metadata: Metadata = {
-  title: "Talia AI — Your Personal AI Nutrition Coach",
-  description: "Track meals, receive personalized guidance, and stay motivated towards your wellness goals with Talia AI.",
-  keywords: ["AI nutrition coach", "meal tracking", "wellness", "diet", "nutrition app"],
+  metadataBase: new URL(BASE_URL),
+  title: { default: 'Talia AI — Your Personal AI Nutrition Coach', template: '%s | Talia AI' },
+  description: 'Track meals, get 12 personalized recipes daily, analyze food photos, and stay motivated on your wellness journey — all powered by AI.',
+  keywords: ['AI nutrition coach', 'meal tracking app', 'personalized meal plan', 'food photo analysis', 'diet app', 'nutrition app'],
+  authors: [{ name: 'Evgeni Yachin' }],
+  creator: 'Talia AI',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: BASE_URL,
+    siteName: 'Talia AI',
+    title: 'Talia AI — Your Personal AI Nutrition Coach',
+    description: 'Track meals, get 12 personalized recipes daily, analyze food photos, and stay motivated on your wellness journey.',
+  },
+  twitter: { card: 'summary_large_image', title: 'Talia AI — AI Nutrition Coach', description: 'Personalized meal plans, food photo tracking, and AI nutrition guidance.' },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  alternates: { canonical: BASE_URL },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Talia AI',
+  url: BASE_URL,
+  description: 'AI-powered personal nutrition coach app for iOS and Android.',
+  potentialAction: { '@type': 'SearchAction', target: `${BASE_URL}/blog?q={search_term_string}`, 'query-input': 'required name=search_term_string' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -16,19 +41,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className="antialiased">
         <Navbar />
         <main>{children}</main>
         <Footer />
-        {/* WhatsApp bubble */}
-        <a
-          href="https://wa.me/972505710374"
-          target="_blank"
-          rel="nofollow noreferrer"
+        <a href="https://wa.me/972505710374" target="_blank" rel="nofollow noreferrer"
           className="fixed bottom-6 right-5 z-50 bg-[#25D366] text-white rounded-full p-3.5 shadow-lg hover:scale-110 transition-transform"
-          aria-label="WhatsApp"
-        >
+          aria-label="Chat on WhatsApp">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
             <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.558 4.112 1.528 5.837L0 24l6.335-1.652A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.49-5.18-1.346l-.371-.22-3.864 1.007 1.035-3.767-.241-.389A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
